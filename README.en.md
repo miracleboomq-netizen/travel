@@ -1,36 +1,60 @@
-# mary
+# Smart Travel · Smart Tourism System
 
-#### Description
-{**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.5-brightgreen)](https://spring.io/projects/spring-boot)
+[![Vue](https://img.shields.io/badge/Vue-3.5-42b883)](https://v3.vuejs.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479a1)](https://www.mysql.com/)
 
-#### Software Architecture
-Software architecture description
+A smart tourism platform built with a **Spring Boot 3 + Vue 3** front-end/back-end separated architecture. It offers tourists scenic-spot browsing, ticket booking, order management and reviews, while giving operators an admin console and an ECharts-powered data dashboard. The full Software Requirements Specification is available in [需求文档.md](需求文档.md) (Chinese).
 
-#### Installation
+## ✨ Features
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+**Tourist portal**
+- Scenic spot exploration: list search & detail pages (tickets, gallery, ratings)
+- Ticket booking with unified order management in the user center
+- Profile management with avatar upload
+- Spot ratings and reviews
 
-#### Instructions
+**Admin console**
+- Scenic spot CRUD with image upload
+- User management
+- Real-time ECharts dashboard for orders & visitor traffic
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+**Planned** (see the SRS): Baidu Maps GIS routing, O2O QR-code ticket verification, RBAC roles (tourist / verifier / admin).
 
-#### Contribution
+## 🏗️ Repository Layout
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+```text
+travel
+├── smart-travel/   # Backend — Spring Boot 3.2.5 + MyBatis-Plus + MySQL 8
+├── travel-web/     # Frontend — Vue 3 + Vite 5 + Element Plus
+├── studyit/        # Java practice sandbox
+└── 需求文档.md      # Requirements Specification (SRS, Chinese)
+```
 
+## 🚀 Getting Started
 
-#### Gitee Feature
+**Prerequisites**: JDK 17+, Node.js 18+, MySQL 8.0.
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+```bash
+# 1. Create the database (schema outlined in the SRS, section 6)
+CREATE DATABASE smart_travel DEFAULT CHARACTER SET utf8mb4;
+
+# 2. Start the backend on http://localhost:8080
+cd smart-travel
+./mvnw spring-boot:run
+
+# 3. Start the frontend
+cd travel-web
+npm install
+npm run dev
+```
+
+> The frontend currently hardcodes the API base URL `http://localhost:8080` — start the backend first for local development.
+
+## 📖 Documentation
+
+- [需求文档.md](需求文档.md) — background, architecture, use cases, functional requirements, database design and non-functional requirements (Chinese).
+
+---
+
+© 2026 [miracleboomq-netizen](https://github.com/miracleboomq-netizen)
