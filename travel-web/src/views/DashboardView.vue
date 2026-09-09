@@ -46,7 +46,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import axios from 'axios'
+import axios from '../api'
 import * as echarts from 'echarts'
 import { PieChart as PieIcon, Histogram as BarChart } from '@element-plus/icons-vue'
 
@@ -58,7 +58,7 @@ let pieChart = null
 // 1. 获取后端统计数据
 const loadData = async () => {
   try {
-    const res = await axios.get('http://localhost:8080/api/order/statistics')
+    const res = await axios.get('/api/order/statistics')
     if (res.data.code === 200) {
       statistics.value = res.data.data
       // 数据获取成功后，初始化/更新图表

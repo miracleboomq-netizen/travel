@@ -128,7 +128,7 @@ import { ref, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { InfoFilled, Guide, Close } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import axios from 'axios'
+import axios from '../api'
 
 const route = useRoute()
 const router = useRouter()
@@ -143,7 +143,7 @@ const loading = ref(false)
 const loadComments = async () => {
   try {
     const spotId = route.params.id
-    const res = await axios.get(`http://localhost:8080/api/comment/list/${spotId}`)
+    const res = await axios.get(`/api/comment/list/${spotId}`)
     if (res.data.code === 200) {
       comments.value = res.data.data || []
     }
@@ -159,7 +159,7 @@ const loadAllData = async () => {
     const spotId = route.params.id
     
     // 1. 获取景区核心详细信息
-    const resSpot = await axios.get(`http://localhost:8080/api/spot/${spotId}`)
+    const resSpot = await axios.get(`/api/spot/${spotId}`)
     spot.value = resSpot.data.data
     
     if (spot.value) planRoute()
@@ -247,7 +247,7 @@ const handleReserve = () => {
     type: 'success'
   }).then(async () => {
     try {
-      const res = await axios.post('http://localhost:8080/api/order/add', { 
+      const res = await axios.post('/api/order/add', { 
         userId: user.id, 
         spotId: spot.value.id, 
         spotName: spot.value.name 
@@ -276,7 +276,7 @@ const postComment = async () => {
   if (!newCommentText.value.trim()) return ElMessage.warning('请输入有效的评价内容')
 
   try {
-    await axios.post('http://localhost:8080/api/comment/add', {
+    await axios.post('/api/comment/add', {
       content: newCommentText.value,
       userId: user.id,
       username: user.username,

@@ -6,6 +6,16 @@
 
 A smart tourism platform built with a **Spring Boot 3 + Vue 3** front-end/back-end separated architecture. It offers tourists scenic-spot browsing, ticket booking, order management and reviews, while giving operators an admin console and an ECharts-powered data dashboard. The full Software Requirements Specification is available in [需求文档.md](需求文档.md) (Chinese).
 
+**Live demo (frontend)**: <https://miracleboomq-netizen.github.io/travel/> — static demo; API data requires running the backend locally.
+
+## 📸 Screenshots
+
+| Home | Spot Detail with GIS |
+| :---: | :---: |
+| ![Home](docs/screenshots/01-home.png) | ![Spot Detail](docs/screenshots/02-spot-detail.png) |
+| **ECharts Dashboard** | **Admin Console** |
+| ![Dashboard](docs/screenshots/03-dashboard.png) | ![Admin](docs/screenshots/04-admin.png) |
+
 ## ✨ Features
 
 **Tourist portal**
@@ -36,8 +46,8 @@ travel
 **Prerequisites**: JDK 17+, Node.js 18+, MySQL 8.0.
 
 ```bash
-# 1. Create the database (schema outlined in the SRS, section 6)
-CREATE DATABASE smart_travel DEFAULT CHARACTER SET utf8mb4;
+# 1. Initialize the database from the bundled script (schema + seed data)
+mysql -uroot -p < sql/smart_travel.sql
 
 # 2. Start the backend on http://localhost:8080
 cd smart-travel
@@ -49,7 +59,10 @@ npm install
 npm run dev
 ```
 
-> The frontend currently hardcodes the API base URL `http://localhost:8080` — start the backend first for local development.
+Demo accounts: `admin / 123456` (admin), `muyu / 123456` (tourist).
+
+> The API base URL is read from the `VITE_API_BASE_URL` environment variable (see `travel-web/src/api/index.js`).
+> It defaults to `http://localhost:8080` in development, where the Vite dev server also proxies `/api` and `/uploads` to the backend.
 
 ## 📖 Documentation
 

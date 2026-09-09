@@ -110,7 +110,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+import axios from '../api'
 import { Search, ArrowRight } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
@@ -139,7 +139,7 @@ const notices = [
 const fetchSpots = async () => {
   loading.value = true
   try {
-    const res = await axios.get('http://localhost:8080/api/spot/list', {
+    const res = await axios.get('/api/spot/list', {
       params: {
         pageNum: pageNum.value,
         pageSize: pageSize.value,
@@ -173,7 +173,7 @@ const handleQuickReserve = (spot) => {
     type: 'success'
   }).then(async () => {
     try {
-      await axios.post('http://localhost:8080/api/order/add', {
+      await axios.post('/api/order/add', {
         userId: user.id,
         spotId: spot.id,
         spotName: spot.name

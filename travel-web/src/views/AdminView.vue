@@ -156,7 +156,7 @@ import { ref, shallowRef, onMounted, watch, onBeforeUnmount } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 
 import { Location, User, ChatDotRound, Ticket } from '@element-plus/icons-vue'
-import axios from 'axios'
+import axios from '../api'
 import { ElMessage } from 'element-plus'
 
 // --- 基础数据 ---
@@ -193,16 +193,16 @@ const loadData = async () => {
   loading.value = true
   try {
     if (activeMenu.value === 'spot') {
-      const res = await axios.get('http://localhost:8080/api/admin/spots')
+      const res = await axios.get('/api/admin/spots')
       spots.value = res.data.data
     } else if (activeMenu.value === 'user') {
-      const res = await axios.get('http://localhost:8080/api/admin/users')
+      const res = await axios.get('/api/admin/users')
       users.value = res.data.data
     } else if (activeMenu.value === 'comment') {
-      const res = await axios.get('http://localhost:8080/api/admin/comments')
+      const res = await axios.get('/api/admin/comments')
       comments.value = res.data.data
     } else if (activeMenu.value === 'order') {
-      const res = await axios.get('http://localhost:8080/api/admin/orders')
+      const res = await axios.get('/api/admin/orders')
       orders.value = res.data.data || []
     }
   } catch (e) {
@@ -217,7 +217,7 @@ watch(activeMenu, () => { loadData() })
 const handleVerify = async (id) => {
   if (!id) return ElMessage.warning('请输入有效的订单号')
   try {
-    const res = await axios.put(`http://localhost:8080/api/admin/order/verify/${id}`)
+    const res = await axios.put(`/api/admin/order/verify/${id}`)
     if (res.data.code === 200) {
       ElMessage.success(res.data.msg)
       verifyOrderId.value = '' 
@@ -242,7 +242,7 @@ const openEdit = (row) => {
 
 const submitForm = async () => {
   const isEdit = !!form.value.id
-  const url = isEdit ? 'http://localhost:8080/api/admin/spot/update' : 'http://localhost:8080/api/admin/spot/add'
+  const url = isEdit ? '/api/admin/spot/update' : '/api/admin/spot/add'
   await axios[isEdit ? 'put' : 'post'](url, form.value)
   ElMessage.success('操作成功')
   dialogVisible.value = false
@@ -250,17 +250,17 @@ const submitForm = async () => {
 }
 
 const handleDeleteSpot = async (id) => {
-  await axios.delete(`http://localhost:8080/api/admin/spot/delete/${id}`)
+  await axios.delete(`/api/admin/spot/delete/${id}`)
   loadData()
 }
 
 const handleDeleteUser = async (id) => {
-  await axios.delete(`http://localhost:8080/api/admin/user/delete/${id}`)
+  await axios.delete(`/api/admin/user/delete/${id}`)
   loadData()
 }
 
 const handleDeleteComment = async (id) => {
-  await axios.delete(`http://localhost:8080/api/admin/comment/delete/${id}`)
+  await axios.delete(`/api/admin/comment/delete/${id}`)
   loadData()
 }
 

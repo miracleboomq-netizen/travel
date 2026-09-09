@@ -47,7 +47,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { User, Lock, Iphone } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import axios from 'axios'
+import axios from '../api'
 
 const router = useRouter()
 const activeTab = ref('login')
@@ -72,7 +72,7 @@ const handleSubmit = async () => {
   
   loading.value = true
   try {
-    const url = isLogin.value ? 'http://localhost:8080/api/user/login' : 'http://localhost:8080/api/user/register'
+    const url = isLogin.value ? '/api/user/login' : '/api/user/register'
     const res = await axios.post(url, form.value)
 
     if (res.data.code === 200) {

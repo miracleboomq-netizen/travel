@@ -6,7 +6,7 @@
           <div class="avatar-container">
             <el-upload
               class="avatar-uploader"
-              action="http://localhost:8080/api/upload"
+              :action="`${API_BASE_URL}/api/upload`"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
@@ -171,7 +171,7 @@ import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Phone, Calendar, SwitchButton, Ticket, Edit, Camera, User, Postcard } from '@element-plus/icons-vue'
 import QrcodeVue from 'qrcode.vue'
-import axios from 'axios'
+import axios, { API_BASE_URL } from '../api'
 
 const router = useRouter()
 
@@ -228,7 +228,7 @@ const initData = () => {
 const loadUserOrders = async (userId) => {
   loadingOrders.value = true
   try {
-    const res = await axios.get(`http://localhost:8080/api/order/user/${userId}`)
+    const res = await axios.get(`/api/order/user/${userId}`)
     orders.value = res.data.data || []
   } catch (error) {
     ElMessage.error('获取订单列表失败')
@@ -249,7 +249,7 @@ const handleDeleteOrder = (orderId) => {
     }
   ).then(async () => {
     try {
-      const res = await axios.delete(`http://localhost:8080/api/order/delete/${orderId}`)
+      const res = await axios.delete(`/api/order/delete/${orderId}`)
       if (res.data.code === 200) {
         ElMessage.success('订单已成功清理！')
         // 删除成功后重新加载当前用户的订单列表
@@ -279,7 +279,7 @@ const saveProfile = async () => {
       payload.password = editForm.password
     }
 
-    const res = await axios.put('http://localhost:8080/api/user/update', payload)
+    const res = await axios.put('/api/user/update', payload)
     
     if (res.data.code === 200) {
       ElMessage.success('实名资料更新成功！')
@@ -352,7 +352,7 @@ const handleAvatarSuccess = async (res) => {
   if (newAvatarUrl) {
     userInfo.avatar = newAvatarUrl
     try {
-      await axios.put('http://localhost:8080/api/user/update', {
+      await axios.put('/api/user/update', {
         id: userInfo.id,
         avatar: newAvatarUrl
       })
